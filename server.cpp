@@ -492,5 +492,8 @@ int main() {
     return crow::response(200, "Password updated");
   });
 
-  app.port(18080).run();
+  const char* port = getenv("PORT");
+  int p = port ? std::stoi(port) : 18080;
+
+  app.port(p).run();
 }
