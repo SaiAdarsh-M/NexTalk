@@ -1,8 +1,5 @@
 FROM ubuntu:22.04
 
-# Avoid prompts during install
-ENV DEBIAN_FRONTEND=noninteractive
-
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     g++ \
@@ -12,16 +9,17 @@ RUN apt-get update && apt-get install -y \
     libsqlite3-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# Set working directory
 WORKDIR /app
 
-# Copy all project files
+# Copy project files
 COPY . .
 
 # Compile
-g++ server.cpp src/utils/Database.cpp -o server -std=c++17 -lpthread -lsqlite3 -I./Crow/include
+RUN g++ server.cpp src/utils/Database.cpp -o server -std=c++17 -lpthread -lsqlite3 -I./Crow/include
 
-# Expose port (Render uses dynamic PORT)
-EXPOSE 10000
+# Expose port
+EXPOSE 18080
 
-# Start server
+# Run server
 CMD ["./server"]
