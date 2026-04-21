@@ -12,7 +12,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN g++ $(find . -name "*.cpp") -o server -std=c++17 -lpthread -lsqlite3 -I./Crow/include
+RUN g++ server.cpp $(find src -name "*.cpp") -o server -std=c++17 -lpthread -lsqlite3 -I./Crow/include
 
 EXPOSE 18080
 
