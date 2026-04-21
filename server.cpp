@@ -491,12 +491,9 @@ int main() {
 
     return crow::response(200, "Password updated");
   });
+  CROW_ROUTE(app, "/")
+  ([]() { return "NexTalk backend is running 🚀"; });
 
-  int p = 18080;
-  const char* env_p = getenv("PORT");
-  if (env_p) {
-    p = atoi(env_p);
-  }
-
-  app.port(p).run();
+  int port = std::stoi(std::getenv("PORT"));
+  app.port(port).run();
 }
